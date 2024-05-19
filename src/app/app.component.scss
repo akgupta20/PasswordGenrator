@@ -1,0 +1,66 @@
+@use '/src/variables';
+
+h1 {
+  color: variables.$purple-gunsmoke;
+  @include variables.body-text;
+  text-align: center;
+}
+
+
+
+
+.interactive {
+  height: 70vh;
+  width: 343px;
+  @include variables.flex-column;
+  margin-top: 30px;
+  padding: 20px 10px;
+  background-color: variables.$black-russian;
+}
+.btn-primary {
+  margin: 25px;
+  width: 311px;
+  height: 56px;
+  border: none;
+  border: 2px solid variables.$synthetic-mint;
+  background: variables.$river-styx ;
+  color: variables.$synthetic-mint ;
+  text-transform: uppercase;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+ .btn-primary:hover>svg,
+ .btn-primary:active>svg {
+  fill: variables.$synthetic-mint ;
+}
+
+/* Responsive Styles */
+@media screen and (min-width: 768px) {
+  .interactive {
+    width: 540px;
+    padding: 20px;
+  }
+
+  .btn-primary {
+    height: 65px;
+    width: 496px;
+    padding: 20px 40px;
+  }
+}
+
+@media screen and (min-width: 1440px) {}
+
+
+.navbarText {
+  font-size: 32px;
+  font-weight: 800;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #6366f1, #9f7aea, #f03e9a);
+  font-family: "Roboto", sans-serif;
+}
+
+
