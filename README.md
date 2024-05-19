@@ -55,10 +55,12 @@ The objective of this project was to build a password generator application usin
 ### Stage 2
 
 - Added checkboxes for user to select the following options:
-1. Include Uppercase Letters
-2. Include Lowercase Letters
-3. Include Numbers
-4. Include Special Symbols
+  1. Include alphabets (uppercase/lowercase)
+  2. Include numbers
+
+### Stage 3
+
+- Added an extra checkbox for including special characters.
 
 
 ## Assumptions
