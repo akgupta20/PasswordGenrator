@@ -13,21 +13,28 @@ export class SliderComponent implements OnInit {
 
   value: number = 0;
   options: Options = {
-    floor: 0,
+    floor: 1,
     ceil: 32,
     step: 1,
     showTicks: false
   };
 
-
-  constructor(private updateCharacters: CharacterCountService, private strengthUpdateService: StrengthUpdateService) { }
+  constructor(
+    private characterCountService: CharacterCountService, 
+    private strengthUpdateService: StrengthUpdateService
+  ) { }
 
   ngOnInit(): void {
   }
 
   updateValue(value: number) {
     this.newCharValueEvent.emit(value);
-    this.updateCharacters.updateCharCount(value)
+    this.characterCountService.updateCharCount(value);
+    this.updateStrength();
   }
 
+  updateStrength() {
+    const { lower, upper, number, symbol } = this.characterCountService.getCurrentOptions();
+    this.strengthUpdateService.updateStrength(lower, upper, number, symbol);
+  }
 }

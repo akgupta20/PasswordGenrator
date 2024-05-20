@@ -1,43 +1,56 @@
-import { Injectable} from "@angular/core";
-import { BehaviorSubject} from "rxjs";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { CharacterCountService } from "../slider/character-count.service";
 
 @Injectable()
-
 export class StrengthUpdateService {
 
   /* Strength Value */
-  levelNumber = 1
   private strengthValue = new BehaviorSubject<number>(1);
-  castStrengthValue = this.strengthValue.asObservable()
-
+  castStrengthValue = this.strengthValue.asObservable();
 
   /* Strength Level */
   private strengthLevel = new BehaviorSubject<string>('');
-  castStrengthLevel = this.strengthLevel.asObservable()
-  strengthLevels = ['', 'too weak!', 'too weak!', 'weak',
-    'weak', 'weak', 'medium', 'medium', 'strong'
-  ];
-
+  castStrengthLevel = this.strengthLevel.asObservable();
+  strengthLevels = ['too weak!', 'weak', 'medium', 'strong'];
 
   constructor(private characterCountService: CharacterCountService) { }
 
-
   updateStrength(lower: boolean, upper: boolean, number: boolean, symbol: boolean) {
     let updatedStrength = 0;
+    const charCount = this.characterCountService.getCurrentCharacterCount();
 
-    updatedStrength =
-      (this.characterCountService.currentCharCount >= 8 ? 2 : 0) +
-      (upper ? 2 : 0) + (lower ? 1 : 0) +
-      (number ? 1 : 0) + (symbol ? 2 : 0)
-    this.levelNumber = updatedStrength;
+    // Length Contribution
+    if (charCount >= 12) {
+      updatedStrength += 3;
+    } else if (charCount >= 8) {
+      updatedStrength += 2;
+    } else if (charCount >= 5) {
+      updatedStrength += 1;
+    }
+
+    // Character Type Contribution
+    if (lower) updatedStrength += 1;
+    if (upper) updatedStrength += 1;
+    if (number) updatedStrength += 1;
+    if (symbol) updatedStrength += 2;
+
+    this.strengthValue.next(updatedStrength);
     this.updateCurrentLevel();
   }
 
-updateCurrentLevel() {
-    let level = this.strengthLevels[this.levelNumber]
-    this.levelNumber = +this.strengthValue
-    this.strengthLevel.next(level)
-  }
+  updateCurrentLevel() {
+    const score = this.strengthValue.getValue();
+    let level = 'too weak!';
 
+    if (score >= 7) {
+      level = 'strong';
+    } else if (score >= 5) {
+      level = 'medium';
+    } else if (score >= 3) {
+      level = 'weak';
+    }
+
+    this.strengthLevel.next(level);
+  }
 }

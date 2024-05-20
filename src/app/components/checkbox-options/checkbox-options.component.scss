@@ -47,7 +47,7 @@
 }
 
 .control:hover input~.control-indicator {
-  background: variables.$synthetic-mint;
+  // background: variables.$synthetic-mint;
 }
 
 .control input:checked~.control-indicator {
