@@ -1,6 +1,6 @@
 # Password Generator
 
-This project is a web application built with Angular, TypeScript, and SCSS that generates a random password each time.
+This project is a web application built with Angular, TypeScript, and SCSS that generates a random password each time. This project was developed as part of the Frontend Developer Assignment at `Facets.cloud`.
 
 ## Deployment
 
@@ -12,7 +12,6 @@ Feel free to explore the live deployment.
 
 - [Setup and Installation](#setup-and-installation)
 - [Running Locally](#running-locally)
-- [Project Details](#project-details)
 - [Technologies Used](#technologies-used)
 - [Assignment Details](#assignment-details)
 - [Assumptions](#assumptions)
@@ -30,20 +29,11 @@ To run the project locally after completing the setup and installation steps:
 1. Start the development server using the command: `npm start`
 2. Open your web browser and navigate to `http://localhost:4200` to view the application.
 
-## Project Details
-
-The objective of this project was to build a password generator application using Angular. The application allows users to generate random passwords based on specified criteria.
-
-### Design Choices
-
-- **Responsive Design**: Implemented a responsive design to ensure optimal viewing experience across various devices.
-- **Dynamic UI**: Integrated dynamic UI elements to enhance user interaction and experience.
-
 ## Technologies Used
 
 - **Angular**: Used as the primary framework for building the web application.
 - **TypeScript**: Utilized for adding type safety and enhancing the development experience.
-- **SCSS**: Employed for styling the application with modular and maintainable CSS.
+- **SCSS**: Used scss for styling the application with modular and maintainable CSS.
 
 ## Assignment Details
 
@@ -65,10 +55,9 @@ The objective of this project was to build a password generator application usin
 
 ## Assumptions
 
-- The password length entered by the user must be a non-negeative.
+- The maximum password length is 32 characters.
 - By default, the generated password will include only alphabets if no checkboxes are selected.
-- If the user selects multiple checkboxes, the password will include a mix of the selected character types.
-- The special characters considered include common symbols such as `!@#$%^&*()_+[]{}|;:',.<>?`.
+- The special characters considered include common symbols such as `['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+']`.
 
 ## GitHub Repository
 
