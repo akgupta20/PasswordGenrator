@@ -8,15 +8,16 @@ import { CharacterCountService } from '../slider/character-count.service';
   styleUrls: ['./checkbox-options.component.scss']
 })
 export class CheckboxOptionsComponent implements OnInit {
+
   upper = false;
   lower = true;
   number = false;
   symbol = false;
 
-  @Output() changeUpperValueEvent = new EventEmitter<{}>();
-  @Output() changeLowerValueEvent = new EventEmitter<{}>();
-  @Output() changeNumberValueEvent = new EventEmitter<{}>();
-  @Output() changeSymbolValueEvent = new EventEmitter<{}>();
+  @Output() changeUpperValueEvent = new EventEmitter<boolean>();
+  @Output() changeLowerValueEvent = new EventEmitter<boolean>();
+  @Output() changeNumberValueEvent = new EventEmitter<boolean>();
+  @Output() changeSymbolValueEvent = new EventEmitter<boolean>();
 
   error = false;
 
@@ -25,7 +26,9 @@ export class CheckboxOptionsComponent implements OnInit {
     private characterCountService: CharacterCountService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.updateStrengthOptions();
+  }
 
   checkForError() {
     if (!this.lower && !this.upper && !this.number && !this.symbol) {
@@ -34,7 +37,7 @@ export class CheckboxOptionsComponent implements OnInit {
         this.error = false;
         this.lower = true;
         this.updateStrengthOptions();
-      }, 5000);
+      }, 3000);
     } else {
       this.error = false;
     }
@@ -43,26 +46,31 @@ export class CheckboxOptionsComponent implements OnInit {
   updateLowerOption() {
     this.lower = !this.lower;
     this.updateStrengthOptions();
+    this.changeLowerValueEvent.emit(this.lower);
   }
 
   updateUpperOption() {
     this.upper = !this.upper;
     this.updateStrengthOptions();
+    this.changeUpperValueEvent.emit(this.upper);
   }
 
   updateNumberOption() {
     this.number = !this.number;
     this.updateStrengthOptions();
+    this.changeNumberValueEvent.emit(this.number);
   }
 
   updateSymbolOption() {
     this.symbol = !this.symbol;
     this.updateStrengthOptions();
+    this.changeSymbolValueEvent.emit(this.symbol);
   }
 
   updateStrengthOptions() {
     this.characterCountService.setOptions(this.lower, this.upper, this.number, this.symbol);
-    this.strengthUpdateService.updateStrength(this.lower, this.upper, this.number, this.symbol);
+    const { lower, upper, number, symbol } = this.characterCountService.getCurrentOptions();
+    this.strengthUpdateService.updateStrength(lower, upper, number, symbol);
     this.checkForError();
   }
 }
